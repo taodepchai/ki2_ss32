@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
+import { useState } from 'react';
+import "./style.css";
 import TodoForm from './todoForm';
 import TodoItem from './todoItem';
+import Swal from 'sweetalert2';
 
 interface Todo {
   id: number;
@@ -10,18 +11,17 @@ interface Todo {
 }
 
 function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  useEffect(() => {
+  const [todos, setTodos] = useState<Todo[]>(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
-      setTodos(JSON.parse(storedTodos));
+      return JSON.parse(storedTodos);
     }
-  }, []);
+    return [];
+  });
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
+  const updateLocalStorage = (updatedTodos: Todo[]) => {
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+  };
 
   const handleAddTodo = (text: string) => {
     const newTodo: Todo = {
@@ -29,7 +29,9 @@ function TodoList() {
       text: text,
       completed: false
     };
-    setTodos([...todos, newTodo]);
+    const updatedTodos = [...todos, newTodo];
+    setTodos(updatedTodos);
+    updateLocalStorage(updatedTodos);
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -43,17 +45,19 @@ function TodoList() {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-         setTodos(todos.filter((todo) => todo.id !== id));
+         const updatedTodos = todos.filter((todo) => todo.id !== id);
+         setTodos(updatedTodos);
+         updateLocalStorage(updatedTodos);
         }
       });
   };
 
   const handleToggleComplete = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
+    setTodos(updatedTodos);
+    updateLocalStorage(updatedTodos);
   };
 
   const handleUpdateTodo = (id: number, newText: string) => {
@@ -67,14 +71,13 @@ function TodoList() {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-         setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, text: newText } : todo
-      )
-    );
+         const updatedTodos = todos.map((todo) =>
+            todo.id === id ? { ...todo, text: newText } : todo
+          );
+          setTodos(updatedTodos);
+          updateLocalStorage(updatedTodos);
         }
-      });
-    
+      });    
   };
 
   return (

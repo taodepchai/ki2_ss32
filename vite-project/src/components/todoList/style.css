@@ -1,0 +1,72 @@
+body {
+    font-family: sans-serif;
+  }
+  
+  .todo-list {
+    width: 500px; 
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+  
+  .todo-list h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Input Area */
+  .todo-form input[type="text"] {
+    width: calc(100% - 100px); /* Adjust spacing */
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .todo-form button {
+    width: 80px;
+    padding: 10px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Task Items */
+  .todo-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .todo-list li input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .todo-list li span {
+    flex-grow: 1;
+  }
+  
+  .todo-list li button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    background-color: #f44336; /* Red */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Edit Button Styling */
+  .todo-list li button.edit {
+    background-color: #ff9800; /* Orange */
+  }
+  
+  /* Completed Task Styling */
+  .todo-list li.completed span {
+    text-decoration: line-through;
+    color: #999;
+  }

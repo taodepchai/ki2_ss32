@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import "./style.css";
+
 interface Todo {
     id: number;
     text: string;
