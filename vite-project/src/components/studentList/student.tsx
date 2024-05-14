@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import StudentList from './studenList';
 import { Student } from './types';
 
 const StudentApp: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([]);
-
-  useEffect(() => {
-    const storedStudents = localStorage.getItem('students');
-    if (storedStudents) {
-      setStudents(JSON.parse(storedStudents));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('students', JSON.stringify(students));
-  }, [students]);
-
+  const [students, setStudents] = useState<Student[]>(JSON.parse(localStorage.getItem('students')!));
   const addStudent = (student: Student) => {
+    localStorage.setItem('students', JSON.stringify([...students, student]));
     setStudents([...students, student]);
   };
 
