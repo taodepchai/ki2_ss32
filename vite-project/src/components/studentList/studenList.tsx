@@ -13,7 +13,7 @@ interface StudentListProps {
   deleteStudent: (studentId: string) => void;
 }
 
-const StudentList: React.FC<StudentListProps> = ({ students, addStudent, updateStudent, deleteStudent }) => {
+const StudentList: React.FC<StudentListProps> = ({ students = [], addStudent, updateStudent, deleteStudent }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [studentsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
@@ -25,7 +25,8 @@ const StudentList: React.FC<StudentListProps> = ({ students, addStudent, updateS
   const indexOfLastStudent = currentPage * studentsPerPage;
   const indexOfFirstStudent = indexOfLastStudent - studentsPerPage;
 
-  const filteredStudents = students.filter((student) => {
+  // Ensure students is always an array
+  const filteredStudents = (students ?? []).filter((student) => {
     const normalizedSearchTerm = searchTerm.toLowerCase();
     return (
       student.name.toLowerCase().includes(normalizedSearchTerm) ||

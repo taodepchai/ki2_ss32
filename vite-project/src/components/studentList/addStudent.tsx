@@ -60,7 +60,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onClose, onSave }) =>
               <option value="inactive">Đã nghỉ</option>
             </select>
           </label><br />
-          <button type="submit" >Thêm mới</button>
+          <button type="submit">Thêm mới</button>
           <button type="button" onClick={onClose}>Hủy</button>
         </form>
       </div>

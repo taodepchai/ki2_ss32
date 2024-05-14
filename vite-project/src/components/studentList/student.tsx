@@ -3,18 +3,27 @@ import StudentList from './studenList';
 import { Student } from './types';
 
 const StudentApp: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>(JSON.parse(localStorage.getItem('students')!));
+  const [students, setStudents] = useState<Student[]>(() => {
+    const storedStudents = localStorage.getItem('students');
+    return storedStudents ? JSON.parse(storedStudents) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('students', JSON.stringify(students));
+  }, [students]);
+
   const addStudent = (student: Student) => {
-    localStorage.setItem('students', JSON.stringify([...students, student]));
-    setStudents([...students, student]);
+    setStudents(prevStudents => [...prevStudents, student]);
   };
 
   const updateStudent = (updatedStudent: Student) => {
-    setStudents(students.map(student => student.id === updatedStudent.id ? updatedStudent : student));
+    setStudents(prevStudents =>
+      prevStudents.map(student => student.id === updatedStudent.id ? updatedStudent : student)
+    );
   };
 
   const deleteStudent = (studentId: string) => {
-    setStudents(students.filter(student => student.id !== studentId));
+    setStudents(prevStudents => prevStudents.filter(student => student.id !== studentId));
   };
 
   return (
