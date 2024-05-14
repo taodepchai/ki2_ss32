@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Student } from "./types";
+import { v4 as uuidv4 } from 'uuid';
+
 
 interface AddStudentModalProps {
   onClose: () => void;
@@ -8,7 +10,7 @@ interface AddStudentModalProps {
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({ onClose, onSave }) => {
   const [newStudent, setNewStudent] = useState<Student>({
-    id: "",
+    id: uuidv4(),
     name: "",
     birthdate: "",
     email: "",
@@ -36,10 +38,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onClose, onSave }) =>
         </span>
         <h2>Thêm mới sinh viên</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            ID:
-            <input type="text" name="id" value={newStudent.id} onChange={handleChange} />
-          </label><br />
           <label>
             Tên:
             <input type="text" name="name" value={newStudent.name} onChange={handleChange} />

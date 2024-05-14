@@ -38,27 +38,23 @@ const EditStudentModal: React.FC<EditStudentModalProps> = ({ student, isOpen, on
         <h2>Edit Student</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            ID:
-            <input type="text" name="id" value={editedStudent.id} onChange={handleChange} readOnly />
-          </label>
-          <label>
             Name:
             <input type="text" name="name" value={editedStudent.name} onChange={handleChange} />
-          </label>
+          </label><br />
           <label>
             Birthdate:
             <input type="date" name="birthdate" value={editedStudent.birthdate} onChange={handleChange} />
-          </label>
+          </label><br />
           <label>
             Email:
             <input type="email" name="email" value={editedStudent.email} onChange={handleChange} />
-          </label>
+          </label><br />
           <label>
             Status:
             <select name="status" value={editedStudent.status} onChange={handleChange}>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
-            </select>
+            </select><br />
           </label>
           <button type="submit">Save Changes</button>
           <button type="button" onClick={onClose}>Cancel</button>
